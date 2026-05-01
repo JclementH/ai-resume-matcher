@@ -6,6 +6,8 @@ export default function App() {
 
   // TODO: Implement analyze function to call backend API and get the analysis result
 
+  // TODO: Display the analysis result in a user-friendly way (e.g., highlighting matched skills, showing a score, etc.)
+
   return (
     <div style={{ width: "600px", display: "flex", flexDirection: "column", gap: "12px" }}>
       <h1>AI Resume Matcher</h1>
