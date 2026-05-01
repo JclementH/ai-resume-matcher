@@ -226,4 +226,6 @@ Web developer with HTML, CSS, JavaScript. No ML experience.
 
 ## OUTPUT
 
-(Return ONLY valid JSON)
+- Do NOT wrap JSON in markdown code blocks.
+- Do NOT include backticks.
+- Output must start with `{` and end with `}`
