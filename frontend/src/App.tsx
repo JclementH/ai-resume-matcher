@@ -4,6 +4,8 @@ export default function App() {
   const [resume, setResume] = useState("");
   const [job, setJob] = useState("");
 
+  // TODO: Implement analyze function to call backend API and get the analysis result
+
   return (
     <div style={{ width: "600px", display: "flex", flexDirection: "column", gap: "12px" }}>
       <h1>AI Resume Matcher</h1>
