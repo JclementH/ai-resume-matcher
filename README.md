@@ -22,18 +22,14 @@ https://resmatch-g.vercel.app/
 [![ResMatch G Video Demo](https://youtu.be/4fjnpMbYZKM/0.jpg)](https://youtu.be/4fjnpMbYZKM)
 
 ## Screenshots
-
-Resume and Job Description Fields
+- Resume and Job Description Fields
 <img width="1317" height="870" alt="image" src="https://github.com/user-attachments/assets/62c08dd7-01cd-4ed9-82bf-5b5067f4bf32" />
-
-Analysis Results Section
+- Analysis Results Section
 <img width="1316" height="872" alt="image" src="https://github.com/user-attachments/assets/f2668504-483a-489c-b660-b393e719cbfd" />
-
-Parts of the Analysis Results Section and the History Section
+- Parts of the Analysis Results Section and the History Section
 <img width="1316" height="870" alt="image" src="https://github.com/user-attachments/assets/49968490-c089-4820-ade3-96c815a9a0a7" />
 
 ## Architecture
-
 ### C1 - Context
 <img width="1323" height="261" alt="image" src="https://github.com/user-attachments/assets/3f372b9c-4a24-40a8-bd57-32eec55784c2" />
 
