@@ -19,7 +19,7 @@ An `openrouter/free` AI-powered tool that evaluates how well a resume matches a 
 https://resmatch-g.vercel.app/
 
 ## Video Demo
-[![ResMatch G Video Demo](https://youtu.be/4fjnpMbYZKM/0.jpg)](https://youtu.be/4fjnpMbYZKM)
+[![ResMatch G Video Demo]](https://youtu.be/4fjnpMbYZKM)
 
 ## Screenshots
 - Resume and Job Description Fields
@@ -39,6 +39,7 @@ https://resmatch-g.vercel.app/
 ### C1 - Context
 <img width="1323" height="261" alt="image" src="https://github.com/user-attachments/assets/3f372b9c-4a24-40a8-bd57-32eec55784c2" />
 <br/>
+
 ### C2 - Container
 <img width="992" height="628" alt="image" src="https://github.com/user-attachments/assets/2d722acb-99c4-4698-9312-49cdcc4358a1" />
 
