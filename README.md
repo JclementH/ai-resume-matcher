@@ -24,15 +24,13 @@ https://resmatch-g.vercel.app/
 ## Screenshots
 - Resume and Job Description Fields
 <img width="1317" height="870" alt="image" src="https://github.com/user-attachments/assets/62c08dd7-01cd-4ed9-82bf-5b5067f4bf32" />
-
-
+\
 - Analysis Results Section
 <img width="1316" height="872" alt="image" src="https://github.com/user-attachments/assets/f2668504-483a-489c-b660-b393e719cbfd" />
-
-
+\
 - Parts of the Analysis Results Section and the History Section
 <img width="1316" height="870" alt="image" src="https://github.com/user-attachments/assets/49968490-c089-4820-ade3-96c815a9a0a7" />
-
+\
 ## Architecture
 
 ### C1 - Context
