@@ -2,6 +2,7 @@ import express from "express";
 import { buildMessages } from "../lib/promptBuilder.mjs";
 import { sendChat } from "../lib/aiClient.mjs";
 import { safeParseJSON } from "../lib/parser.mjs";
+import { AnalysisSchema } from "../lib/schema.mjs";
 
 const router = express.Router();
 
@@ -29,8 +30,28 @@ router.post("/", async (req, res) => {
         raw_output: raw
       });
     }
+    
+    const result = AnalysisSchema.safeParse(parsed);
 
-    res.json({ analysis: parsed });
+    if (!result.success) {
+      console.log("Retrying due to invalid schema...");
+
+      const retryRaw = await sendChat(messages);
+      const retryParsed = safeParseJSON(retryRaw);
+
+      const retryResult = AnalysisSchema.safeParse(retryParsed);
+
+      if (!retryResult.success) {
+        return res.status(500).json({
+          error: "Model failed twice",
+          raw_output: retryParsed
+        });
+      }
+
+      return res.json({ analysis: retryResult.data });
+    }
+
+    res.json({ analysis: result.data });
 
   } catch (error) {
     res.status(500).json({
