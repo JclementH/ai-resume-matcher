@@ -1,4 +1,4 @@
-# ResuMatch G
+# ResMatch G
 
 An `openrouter/free` AI-powered tool that evaluates how well a resume matches a job description.
 
