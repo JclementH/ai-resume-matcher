@@ -16,10 +16,8 @@ An `openrouter/free` AI-powered tool that evaluates how well a resume matches a 
 - Validation: Zod
 
 ## Live Demo
-<to add>
+https://resmatch-g.vercel.app/
 
 ## Screenshots
-<to add>
-
-## Setup
-<to add>
+<img width="1593" height="870" alt="image" src="https://github.com/user-attachments/assets/a86ff614-154f-4634-b000-7a15745e0c05" />
+<img width="1595" height="871" alt="image" src="https://github.com/user-attachments/assets/f043f645-74a9-4dfe-a071-93261edd54e2" />
