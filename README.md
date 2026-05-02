@@ -19,7 +19,7 @@ An `openrouter/free` AI-powered tool that evaluates how well a resume matches a 
 https://resmatch-g.vercel.app/
 
 ## Video Demo
-[![Watch the video](https://youtu.be/4fjnpMbYZKM)](https://youtu.be/4fjnpMbYZKM)
+[![ResMatch G Video Demo](https://youtu.be/4fjnpMbYZKM/0.jpg)](https://youtu.be/4fjnpMbYZKM)
 
 ## Screenshots
 
