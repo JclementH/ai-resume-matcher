@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
-import ScoreBar from "./components/Scorebar";
+import ScoreBar from "./components/ScoreBar";
+import SuggestionCard from "./components/SuggestionCard";
+
+type SavedAnalysis = {
+  id: string;
+  date: string;
+  resume: string;
+  jobDescription: string;
+  analysis: AnalysisResult;
+};
 
 interface AnalysisResult {
   analysis: {
@@ -16,6 +25,7 @@ interface Errors {
   jobDescription?: string;
 }
 
+
 export default function App() {
   const [resume, setResume] = useState("");
   const [jobDescription, setJobDescription] = useState("");
@@ -26,6 +36,7 @@ export default function App() {
     resume: false,
     jobDescription: false,
   });
+  const [history, setHistory] = useState<SavedAnalysis[]>([]);
 
   // 🔹 validation helper
   function validate(resumeVal: string, jobVal: string): Errors {
@@ -60,11 +71,34 @@ export default function App() {
 
       const data = await res.json();
       setAnalysisResult(data);
+      saveToHistory(data);
     } catch (error) {
       console.error("Error analyzing:", error);
     } finally {
       setLoading(false);
     }
+  }
+
+  function saveToHistory(result: AnalysisResult) {
+    const newEntry: SavedAnalysis = {
+      id: crypto.randomUUID(),
+      date: new Date().toLocaleString(),
+      resume,
+      jobDescription,
+      analysis: result,
+    };    
+
+    const updated = [newEntry, ...history].slice(0, 10);
+
+    setHistory(updated);
+    localStorage.setItem("analysis_history", JSON.stringify(updated));
+  }
+
+  function restoreFromHistory(item: SavedAnalysis) {
+    setResume(item.resume);
+    setJobDescription(item.jobDescription);
+    setAnalysisResult(item.analysis);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   useEffect(() => {
@@ -208,14 +242,48 @@ export default function App() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-yellow-400 mb-2">
+            <h3 className="text-lg font-semibold text-gray-100 mb-3">
               Suggestions
             </h3>
-            <ul className="list-disc list-inside text-gray-300 space-y-2 pl-2">
+            <div className="grid gap-3">
               {analysisResult.analysis.suggestions.map((s, i) => (
-                <li key={i}>{s}</li>
+                <SuggestionCard key={i} text={s} />
               ))}
-            </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {history.length > 0 && (
+        <div className="w-full max-w-5xl mt-10 space-y-4">
+          
+          <h2 className="text-xl font-semibold text-gray-100">
+            History
+          </h2>
+
+          <div className="grid gap-3">
+            {history.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => restoreFromHistory(item)}
+                className="bg-gray-900 border border-gray-800 rounded-xl p-4 space-y-2 cursor-pointer hover:border-gray-600 transition"
+              >
+                <div className="flex justify-between text-sm text-gray-400">
+                  <span>{item.date}</span>
+                  <span>
+                    Score: {item.analysis.analysis.overall_match.score}
+                  </span>
+                </div>
+
+                <p className="text-gray-300 text-sm line-clamp-2">
+                  {item.jobDescription}
+                </p>
+
+                <p className="text-xs text-gray-500">
+                  Click to restore
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       )}

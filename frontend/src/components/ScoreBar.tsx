@@ -18,12 +18,23 @@ export default function ScoreBar({ score }: { score: number }) {
         />
       </div>
 
-      {/* Labels */}
-      <div className="flex justify-between text-xs text-gray-500 mt-1">
-        <span>0</span>
-        <span className="font-semibold">{score}</span>
-        <span>100</span>
-      </div>
+      <div className="relative w-full mt-1">
+				{/* Labels */}
+				<div className="flex justify-between text-xs text-gray-500">
+					<span>0</span>
+					<span>100</span>
+				</div>
+
+				{/* Dynamic score position */}
+				<span
+					className="absolute text-xs font-semibold text-gray-300 -top-1 mt-1 -translate-x-1/2"
+					style={{
+						left: `${Math.min(100, Math.max(0, score))}%`
+					}}
+				>
+					{score}
+				</span>
+			</div>
     </div>
   );
 }
