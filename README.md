@@ -23,8 +23,14 @@ https://resmatch-g.vercel.app/
 
 ## Screenshots
 
-<img width="1593" height="870" alt="image" src="https://github.com/user-attachments/assets/a86ff614-154f-4634-b000-7a15745e0c05" />
-<img width="1595" height="871" alt="image" src="https://github.com/user-attachments/assets/f043f645-74a9-4dfe-a071-93261edd54e2" />
+Resume and Job Description Fields
+<img width="1317" height="870" alt="image" src="https://github.com/user-attachments/assets/62c08dd7-01cd-4ed9-82bf-5b5067f4bf32" />
+
+Analysis Results Section
+<img width="1316" height="872" alt="image" src="https://github.com/user-attachments/assets/f2668504-483a-489c-b660-b393e719cbfd" />
+
+Parts of the Analysis Results Section and the History Section
+<img width="1316" height="870" alt="image" src="https://github.com/user-attachments/assets/49968490-c089-4820-ade3-96c815a9a0a7" />
 
 ## Architecture
 
