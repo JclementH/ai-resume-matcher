@@ -63,7 +63,7 @@ export default function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/analyze", {
+      const res = await fetch("https://resmatch-g.onrender.com/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resume, jobDescription })
