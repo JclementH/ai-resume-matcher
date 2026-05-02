@@ -110,7 +110,7 @@ export default function App() {
       
       {/* Title */}
       <h1 className="text-4xl font-bold tracking-tight text-center">
-        ResuMatch G
+        ResMatch G
       </h1>
 
       {/* Form */}
