@@ -26,14 +26,16 @@ export default function ScoreBar({ score }: { score: number }) {
 				</div>
 
 				{/* Dynamic score position */}
-				<span
-					className="absolute text-xs font-semibold text-gray-300 -top-1 mt-1 -translate-x-1/2"
-					style={{
-						left: `${Math.min(100, Math.max(0, score))}%`
-					}}
-				>
-					{score}
-				</span>
+				{ score >= 0 && score <= 100 && (
+          <span
+            className="absolute text-xs font-semibold text-gray-300 -top-1 mt-1 -translate-x-1/2"
+            style={{
+              left: `${Math.min(100, Math.max(0, score))}%`
+            }}
+          >
+            {score}
+          </span>
+        )}
 			</div>
     </div>
   );
