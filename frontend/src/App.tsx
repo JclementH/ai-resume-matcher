@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ScoreBar from "./components/ScoreBar";
 import SuggestionCard from "./components/SuggestionCard";
 
@@ -37,8 +37,8 @@ export default function App() {
     jobDescription: false,
   });
   const [history, setHistory] = useState<SavedAnalysis[]>([]);
+  const [serverError, setServerError] = useState<string | null>(null);
 
-  // 🔹 validation helper
   function validate(resumeVal: string, jobVal: string): Errors {
     const newErrors: Errors = {};
     if (!resumeVal.trim()) newErrors.resume = "Resume is required.";
@@ -46,37 +46,62 @@ export default function App() {
     return newErrors;
   }
 
+  async function fetchWithRetry(
+    url: string,
+    options: RequestInit,
+    retries = 3,
+    delay = 1000
+  ): Promise<Response> {
+    try {
+      const res = await fetch(url, options);
+      if (!res.ok && res.status >= 500) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+      return res;
+    } catch (err) {
+      if (retries <= 0) throw err;
+      console.warn(`Retrying... attempts left: ${retries}`);
+      await new Promise((r) => setTimeout(r, delay));
+      return fetchWithRetry(url, options, retries - 1, delay * 2);
+    }
+  }
+
+  async function runAnalysis() {
+    setLoading(true);
+    setServerError(null);
+
+    try {
+      const res = await fetchWithRetry(
+        "https://resmatch-g.onrender.com/analyze",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ resume, jobDescription }),
+        }
+      );
+
+      const data = await res.json();
+      setAnalysisResult(data);
+      saveToHistory(data);
+
+    } catch (error) {
+      setServerError("Unable to analyze right now. Please try again.");
+      console.log("Analysis error:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const newErrors = validate(resume, jobDescription);
     setErrors(newErrors);
-
-    // mark all as touched on submit
-    setTouched({
-      resume: true,
-      jobDescription: true,
-    });
+    setTouched({ resume: true, jobDescription: true });
 
     if (Object.keys(newErrors).length > 0) return;
 
-    setLoading(true);
-
-    try {
-      const res = await fetch("https://resmatch-g.onrender.com/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ resume, jobDescription })
-      });
-
-      const data = await res.json();
-      setAnalysisResult(data);
-      saveToHistory(data);
-    } catch (error) {
-      console.error("Error analyzing:", error);
-    } finally {
-      setLoading(false);
-    }
+    runAnalysis();
   }
 
   function saveToHistory(result: AnalysisResult) {
@@ -100,10 +125,6 @@ export default function App() {
     setAnalysisResult(item.analysis);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-
-  useEffect(() => {
-    console.log("Analysis Result:", analysisResult);
-  }, [analysisResult]);
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100 flex flex-col items-center px-6 py-10 gap-8">
@@ -197,6 +218,22 @@ export default function App() {
         >
           {loading ? "Analyzing..." : "Analyze"}
         </button>
+
+        {serverError && (
+          <div className="bg-red-500/10 border border-red-500 text-red-400 rounded-xl p-3 text-sm">
+            {serverError}
+          </div>
+        )}
+
+        {serverError && (
+          <button
+            type="button"
+            onClick={runAnalysis}
+            className="text-sm text-yellow-400 hover:underline"
+          >
+            Try again
+          </button>
+        )}
       </form>
 
       {/* Results */}
